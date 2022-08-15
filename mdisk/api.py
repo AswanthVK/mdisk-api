@@ -8,6 +8,8 @@ import requests
 import re
 import sys
 
+url = "https://diskuploader.mypowerdisk.com/v1/tp/cp"
+    
 class Mdisk:
     '''
     Python mdisk api wrapper from official bot (@)
