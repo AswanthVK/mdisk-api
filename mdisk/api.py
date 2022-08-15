@@ -15,7 +15,7 @@ class Mdisk:
     all method below return dict that contain info
     '''
     
-    base_url = "https://diskuploader.mypowerdisk.com/v1/tp/cp"
+    url = "https://diskuploader.mypowerdisk.com/v1/tp/cp"
     
     def __init__(self, api_key):
         '''
@@ -36,9 +36,10 @@ class Mdisk:
         try:
             param = {'token':str(self.api_key), 'link':str(link)} 
             r = requests.post(url, json = param) 
-            response = r.json()
-            data = dict(response)
-            mdisk = data["sharelink"]
+            mdisk = r.json()["sharelink"]
+            #response = r.json()
+            #data = dict(response)
+            #mdisk = data["sharelink"]
             return mdisk
         except ConnectionError as e:
             sys.exit(f"ERROR : {e}")
