@@ -16,8 +16,6 @@ class Mdisk:
     all method below return dict that contain info
     '''
     
-    url = "https://diskuploader.mypowerdisk.com/v1/tp/cp"
-    
     def __init__(self, api_key:str):
         '''
         init mdisk
