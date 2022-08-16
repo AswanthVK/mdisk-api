@@ -47,4 +47,21 @@ class Mdisk:
         except ConnectionError as e:
             sys.exit(f"ERROR : {e}")
 
-          
+    def __error_handler(self, url:str, silently_fail:bool, exception=Exception, message="Some error occurred during converting: %s"):
+        """
+        If the URL is valid, return it. If it's not, return it or raise an exception, depending on the value
+        of the `silently_fail` parameter
+        
+        :param url: The URL to be validated
+        :type url: str
+        :param silently_fail: If True, then if the URL is not valid, return the original URL. If False,
+        raise an exception
+        :type silently_fail: bool
+        :param exception: The exception to raise if the URL is not valid
+        :return: The url is being returned.
+        """
+        if silently_fail:
+            return url
+        else:
+            raise exception(message % url)
+
