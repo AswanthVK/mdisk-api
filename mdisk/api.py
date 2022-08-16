@@ -7,8 +7,7 @@
 import requests
 import re
 import sys
-
-url = "https://diskuploader.mypowerdisk.com/v1/tp/cp"
+from .exception import LinkInvalid
     
 class Mdisk:
     '''
@@ -19,7 +18,7 @@ class Mdisk:
     
     url = "https://diskuploader.mypowerdisk.com/v1/tp/cp"
     
-    def __init__(self, api_key):
+    def __init__(self, api_key:str):
         '''
         init mdisk
         
@@ -27,8 +26,9 @@ class Mdisk:
             api_key (str): api key from mdisk
         '''
         self.api_key = api_key
+        self.base_url = 'https://diskuploader.mypowerdisk.com/v1/tp/cp'
   
-    def upload(self, link):
+    def upload(self, link:str, silently_fail:bool = False) -> str:
         '''
         Upload files using direct links
         
@@ -36,13 +36,14 @@ class Mdisk:
             link (str): link from site to get streaming link
         '''
         try:
-            param = {'token':str(self.api_key), 'link':str(link)} 
-            r = requests.post(url, json = param) 
+            param = {'token':self.api_key, 'link':link} 
+            r = requests.post(base_url, json = param) 
             mdisk = r.json()["sharelink"]
             #response = r.json()
             #data = dict(response)
             #mdisk = data["sharelink"]
-            return mdisk
+            return await self.__error_handler(url=link, silently_fail=silently_fail, exception=LinkInvalid)
+
         except ConnectionError as e:
             sys.exit(f"ERROR : {e}")
 
