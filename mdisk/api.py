@@ -34,7 +34,7 @@ class Mdisk:
         '''
         try:
             param = {'token':self.api_key, 'link':link} 
-            r = requests.post(base_url, json = param) 
+            r = requests.post(self.base_url, json = param) 
             mdisk = r.json()["sharelink"]
             #response = r.json()
             #data = dict(response)
