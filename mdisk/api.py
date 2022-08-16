@@ -7,7 +7,6 @@
 import requests
 import re
 import sys
-from .exception import LinkInvalid
     
 class Mdisk:
     '''
